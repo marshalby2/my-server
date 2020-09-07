@@ -5,15 +5,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.book.comman.JwtTokenUtil;
 import com.book.comman.exception.ExceptionFactory;
+import com.book.comman.jwt.JwtToken;
+import com.book.comman.jwt.JwtTokenUtil;
 import com.book.domain.bean.User;
 import com.book.domain.request.UserLoginRequest;
 import com.book.domain.request.UserRegisterRequest;
 import com.book.mapper.UserMapper;
 import com.book.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,10 +32,10 @@ import java.util.Objects;
  * @Author marshal
  * @Date 5/9/20 9:41 AM
  */
+@Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -54,7 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public String login(UserLoginRequest request) {
+    public JwtToken login(UserLoginRequest request) {
         String token = null;
         try {
             var userDetails = userDetailsService.loadUserByUsername(request.getUsername());
@@ -65,13 +65,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
         } catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
+            log.warn("登录异常:{}", e.getMessage());
         }
-        return token;
+        return  new JwtToken("Bearer", token);
     }
 
     @Override
-    public User register(UserRegisterRequest request) {
+    public User add(UserRegisterRequest request) {
         var newUser = new User();
         BeanUtils.copyProperties(request, newUser);
         newUser.setCreateTime(new Date());

@@ -2,7 +2,7 @@ package com.book.web;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.book.comman.Result;
+import com.book.comman.result.Result;
 import com.book.domain.bean.User;
 import com.book.domain.request.UserLoginRequest;
 import com.book.domain.request.UserRegisterRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.PermitAll;
-import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @Description TODO
@@ -50,13 +50,10 @@ public class UserController {
     @ApiOperation(value = "后台登录，返回 token ", httpMethod = "POST")
     public Result login(@RequestBody UserLoginRequest request) {
         var token = userService.login(request);
-        if (Strings.isNullOrEmpty(token)) {
+        if (Objects.isNull(token)) {
             return Result.failed("登录失败");
         }
-        var tokenMap = Maps.newHashMap();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
-        return Result.success(tokenMap);
+        return Result.success(token);
     }
 
 
@@ -70,7 +67,7 @@ public class UserController {
     @PostMapping("/register")
     @ApiOperation(value = "用户注册", httpMethod = "POST")
     public Result register(@RequestBody UserRegisterRequest request) {
-        return Result.success(userService.register(request));
+        return Result.success(userService.add(request));
     }
 
     /**

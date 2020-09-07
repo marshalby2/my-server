@@ -1,4 +1,4 @@
-package com.book.comman;
+package com.book.comman.result;
 
 import lombok.Getter;
 

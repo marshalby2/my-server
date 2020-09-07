@@ -1,7 +1,7 @@
-package com.book.component;
+package com.book.config;
 
 import cn.hutool.json.JSONUtil;
-import com.book.comman.Result;
+import com.book.comman.result.Result;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

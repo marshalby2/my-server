@@ -1,6 +1,5 @@
-package com.book.comman;
+package com.book.comman.result;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import lombok.Getter;
 import lombok.Setter;
 

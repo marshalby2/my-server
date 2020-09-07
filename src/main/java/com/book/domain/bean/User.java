@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @Date 4/9/20 10:15 AM
  */
 @Data
-public class User implements UserDetails, Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,34 +37,4 @@ public class User implements UserDetails, Serializable {
 
     @TableField(exist = false)
     private List<Role> roles;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (Objects.isNull(getRoles())) {
-            return null;
-        }
-        return getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

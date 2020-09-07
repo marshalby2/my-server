@@ -1,9 +1,6 @@
 package com.book.config;
 
-import com.book.domain.bean.User;
-import com.book.comman.JwtAuthenticationTokenFilter;
-import com.book.component.RestAuthenticationEntryPoint;
-import com.book.component.RestfulAccessDeniedHandler;
+import com.book.comman.jwt.JwtAuthenticationTokenFilter;
 import com.book.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -40,6 +35,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
 
+    /**
+     *  拦截控制
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -89,20 +90,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        //获取登录用户信息
-        return username -> {
-            User user = userService.findByUsername(username);
-            if (user != null) {
-                // 逻辑判断
-                return user;
-            }
-            throw new UsernameNotFoundException("用户名或密码错误");
-        };
-    }
-
 
     /**
      * JWT 过滤器

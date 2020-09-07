@@ -1,4 +1,4 @@
-package com.book.comman;
+package com.book.comman.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,7 +1,7 @@
-package com.book.component;
+package com.book.config;
 
 import cn.hutool.json.JSONUtil;
-import com.book.comman.Result;
+import com.book.comman.result.Result;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,6 @@ import java.io.IOException;
 
 /**
  * 当未登录或者token失效访问接口时，自定义的返回结果
- * Created by macro on 2018/5/14.
  */
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
