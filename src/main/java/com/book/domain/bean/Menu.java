@@ -2,6 +2,7 @@ package com.book.domain.bean;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,8 @@ import java.util.Date;
  */
 
 @Data
-public class Menu{
+public class Menu implements Serializable {
+    private static final long serialVersionUID = 6485417236040485874L;
     private Long id;
     private String name;
     private String url;

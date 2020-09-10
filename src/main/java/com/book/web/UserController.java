@@ -58,14 +58,14 @@ public class UserController {
 
 
     /**
-     *  用户注册
+     *  添加用户
      *
      * @param request
      * @return
      */
     @PermitAll
-    @PostMapping("/register")
-    @ApiOperation(value = "用户注册", httpMethod = "POST")
+    @PostMapping("/add")
+    @ApiOperation(value = "添加用户", httpMethod = "POST")
     public Result register(@RequestBody UserRegisterRequest request) {
         return Result.success(userService.add(request));
     }

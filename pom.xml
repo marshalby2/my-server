@@ -88,7 +88,7 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.3.6.Final</version>
         </dependency>
-
+        <!-- 解决 Java 高版本报错问题 java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
