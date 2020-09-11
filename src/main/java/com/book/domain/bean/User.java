@@ -1,19 +1,13 @@
 package com.book.domain.bean;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Builder;
+import com.book.comman.bean.BaseModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @Description TODO
@@ -21,22 +15,23 @@ import java.util.stream.Collectors;
  * @Date 4/9/20 10:15 AM
  */
 @Data
-public class User implements Serializable {
+@ApiModel("用户信息")
+public class User extends BaseModel implements Serializable {
+    private static final long serialVersionUID = 295547971163197275L;
 
-    private static final long serialVersionUID = 1L;
-
-
-    private Long id;
+    @ApiModelProperty("用户名")
     private String username;
+    @ApiModelProperty("密码")
     private String password;
+    @ApiModelProperty("头像")
     private String avatar;
+    @ApiModelProperty("昵称")
     private String nickName;
+    @ApiModelProperty("邮箱")
     private String email;
-    private String remark;
-    private Integer status;
-    private Date createTime;
-    private Date updateTime;
-
+    @ApiModelProperty("是否启用")
+    private Boolean enable;
+    @ApiModelProperty(value = "用户角色信息", hidden = true)
     @TableField(exist = false)
     private List<Role> roles;
 }

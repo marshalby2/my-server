@@ -1,12 +1,11 @@
 package com.book.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.book.comman.jwt.JwtToken;
 import com.book.domain.bean.User;
 import com.book.domain.request.UserLoginRequest;
-import com.book.domain.request.UserRegisterRequest;
+
+import java.util.List;
 
 /**
  * @Description TODO
@@ -34,18 +33,19 @@ public interface UserService extends IService<User>{
     JwtToken login(UserLoginRequest request);
 
     /**
-     *  新增用户
+     *  保存用户
      *
-     * @param request
+     * @param user
      * @return
      */
-    User add(UserRegisterRequest request);
+    boolean save(User user);
 
     /**
-     *  分页查询
+     *  保存角色信息
      *
-     * @param page
+     * @param userId
+     * @param roleIds
      * @return
      */
-    IPage<User> findByPage(Page<User> page);
+    boolean saveRole(Long userId, List<Long> roleIds);
 }

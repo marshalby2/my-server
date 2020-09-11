@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Getter
 @Setter
-public class UserRegisterRequest {
+public class UserRequest {
     @ApiModelProperty(value = "用户名", required = true)
     @NotEmpty(message = "用户名不能为空")
     private String username;

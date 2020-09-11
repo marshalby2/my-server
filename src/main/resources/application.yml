@@ -28,7 +28,7 @@ swagger:
   authorization:
     key-name: book-token
   docket:
-    im-api-api:
-      title: book管理系统-API
+    book-api:
+      title: book管理系统-API-api
       version: v-1.0.0
       basePackage: com.book.web

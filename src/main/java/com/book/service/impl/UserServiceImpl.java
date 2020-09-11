@@ -1,20 +1,19 @@
 package com.book.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.book.comman.exception.ExceptionFactory;
 import com.book.comman.jwt.JwtToken;
 import com.book.comman.jwt.JwtTokenUtil;
 import com.book.domain.bean.User;
+import com.book.domain.bean.UserRole;
 import com.book.domain.request.UserLoginRequest;
-import com.book.domain.request.UserRegisterRequest;
 import com.book.mapper.UserMapper;
+import com.book.mapper.UserRoleMapper;
 import com.book.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +23,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,12 +46,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
 
     @Override
     public User findByUsername(String username) {
-        var wrapper = new LambdaQueryWrapper<User>();
-        wrapper.eq(User::getUsername, username);
-        return this.userMapper.selectOne(wrapper);
+        var query = new LambdaQueryChainWrapper<>(userMapper);
+        query.eq(User::getUsername, username);
+        return query.one();
     }
 
     @Override
@@ -67,29 +70,46 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         } catch (AuthenticationException e) {
             log.warn("登录异常:{}", e.getMessage());
         }
-        return  new JwtToken("Bearer", token);
+        return new JwtToken("Bearer", token);
     }
 
     @Override
-    public User add(UserRegisterRequest request) {
-        var newUser = new User();
-        BeanUtils.copyProperties(request, newUser);
-        newUser.setCreateTime(new Date());
-        newUser.setStatus(1);
-
-        var user = this.findByUsername(newUser.getUsername());
-        if (Objects.nonNull(user)) {
+    public boolean save(User user) {
+        // 逻辑校验
+        var newUser = this.findByUsername(user.getUsername());
+        if (Objects.nonNull(newUser)) {
             ExceptionFactory.build("用户名已存在");
         }
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        userMapper.insert(newUser);
-        return newUser;
+        if (Objects.nonNull(user.getId()) && !user.getId().equals(0L)) {
+            // 更新
+            if (StrUtil.isNotEmpty(user.getPassword())) {
+                // 密码加密
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            user.setUpdateTime(Date.from(Instant.now()));
+            userMapper.updateById(user);
+        } else {
+            // 新增
+            // 密码加密
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userMapper.insert(user);
+        }
+        return true;
     }
 
     @Override
-    public IPage<User> findByPage(Page<User> page) {
-        return userMapper.selectPage(page, new QueryWrapper<User>());
+    public boolean saveRole(Long userId, List<Long> roleIds) {
+        // 删除原有的用户角色关系
+        var wrapper = new LambdaQueryWrapper<UserRole>();
+        wrapper.eq(UserRole::getUserId, userId);
+        userRoleMapper.delete(wrapper);
+        // 重新插入新关系
+        roleIds.forEach(roleId -> {
+            userRoleMapper.insert(UserRole.builder().userId(userId).roleId(roleId).build());
+        });
+        return true;
     }
+
 }
 
 

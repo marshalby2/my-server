@@ -5,20 +5,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.book.comman.result.Result;
 import com.book.domain.bean.User;
 import com.book.domain.request.UserLoginRequest;
-import com.book.domain.request.UserRegisterRequest;
+import com.book.domain.request.UserRequest;
 import com.book.service.UserService;
-import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,7 +24,7 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping("/user")
-@Api(tags = "user", value = "用户管理接口")
+@Api(tags = "用户管理", value = "UserController")
 public class UserController {
 
     @Autowired
@@ -58,16 +54,16 @@ public class UserController {
 
 
     /**
-     *  添加用户
+     *  保存
      *
-     * @param request
+     * @param user
      * @return
      */
     @PermitAll
-    @PostMapping("/add")
-    @ApiOperation(value = "添加用户", httpMethod = "POST")
-    public Result register(@RequestBody UserRegisterRequest request) {
-        return Result.success(userService.add(request));
+    @PostMapping("/save")
+    @ApiOperation(value = "用户管理-保存", httpMethod = "POST")
+    public Result save(@RequestBody User user) {
+        return Result.success(userService.save(user));
     }
 
     /**
@@ -76,10 +72,29 @@ public class UserController {
      * @param page
      * @return
      */
-    @PostMapping("/loadByPage")
-    @ApiOperation(value = "分页查询用户", httpMethod = "POST")
-    public Result<IPage<User>> loadByPage(Page<User> page) {
-        return Result.success(this.userService.findByPage(page));
+    @PostMapping("/page")
+    @ApiOperation(value = "用户管理-分页查询", httpMethod = "POST")
+    public Result<IPage<User>> page(Page<User> page) {
+        return Result.success(this.userService.page(page));
+    }
+
+    @GetMapping("/detail/{id}")
+    @ApiOperation(value = "用户管理-详细信息", httpMethod = "GET")
+    public Result<User> detail(@PathVariable Long id) {
+        return Result.success(userService.getById(id));
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "用户管理-删除", httpMethod = "DELETE")
+    public Result delete(@PathVariable Long id) {
+        return Result.success(userService.removeById(id));
+    }
+
+    @GetMapping("/saveRole")
+    @ApiOperation(value = "用户管理-保存角色信息", httpMethod = "GET")
+    public Result saveRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") List<Long> roleIds) {
+        return Result.success(userService.saveRole(userId, roleIds));
     }
 
 }

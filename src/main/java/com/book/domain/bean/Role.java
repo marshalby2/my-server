@@ -1,5 +1,8 @@
 package com.book.domain.bean;
 
+import com.book.comman.bean.BaseModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,14 +14,9 @@ import java.util.Date;
  * @Date 4/9/20 5:16 PM
  */
 @Data
-public class Role implements Serializable {
-
+@ApiModel("角色信息")
+public class Role extends BaseModel implements Serializable {
     private static final long serialVersionUID = 7546946961871131590L;
-
-    private Long id;
+    @ApiModelProperty("名称")
     private String name;
-    private String description;
-    private Date createTime;
-    private Date updateTime;
-
 }
