@@ -2,6 +2,7 @@ package com.book.domain.bean;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.book.comman.bean.BaseModel;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,14 +21,16 @@ import java.util.List;
 public class Menu extends BaseModel implements Serializable {
     private static final long serialVersionUID = 6485417236040485874L;
     @ApiModelProperty("名称")
-    private String name;
+    private String label;
     @ApiModelProperty("URL")
     private String url;
     @ApiModelProperty("图标")
     private String icon;
     @ApiModelProperty("父级菜单ID")
     private Long parentId;
+    @ApiModelProperty("排序")
+    private Integer sort;
     @ApiModelProperty(value = "子菜单", hidden = true)
     @TableField(exist = false)
-    private List<Menu> children;
+    private List<Menu> children = Lists.newArrayList();
 }

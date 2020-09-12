@@ -10,8 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @Description TODO
  * @Author marshal
@@ -29,6 +27,13 @@ public class MenuController {
     @ApiOperation(value = "菜单管理-分页查询", httpMethod = "POST")
     public Result<IPage<Menu>> page(Page<Menu> page) {
         return Result.success( menuService.page(page));
+    }
+
+
+    @GetMapping("/tree")
+    @ApiOperation(value = "菜单管理-获取菜单树", httpMethod = "GET")
+    public Result tree(Boolean lazy, Long parentId) {
+        return Result.success(menuService.getMenuTree(lazy, parentId));
     }
 
     @GetMapping("/detail/{id}")

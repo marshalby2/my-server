@@ -11,4 +11,13 @@ import java.util.List;
  * @Date 11/9/20 3:12 PM
  */
 public interface MenuService extends IService<Menu> {
+    /**
+     * 获取菜单树
+     * 1. 不是懒加载情况，查询全部
+     * 2. 是懒加载，根据parentId 查询
+     * @param lazy
+     * @param parentId
+     * @return
+     */
+    List<Menu> getMenuTree(boolean lazy, Long parentId);
 }

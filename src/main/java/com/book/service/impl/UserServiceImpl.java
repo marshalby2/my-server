@@ -70,6 +70,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         } catch (AuthenticationException e) {
             log.warn("登录异常:{}", e.getMessage());
         }
+        if (StrUtil.isEmpty(token)) {
+            return null;
+        }
         return new JwtToken("Bearer", token);
     }
 

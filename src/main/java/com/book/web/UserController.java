@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.book.comman.result.Result;
 import com.book.domain.bean.User;
 import com.book.domain.request.UserLoginRequest;
-import com.book.domain.request.UserRequest;
 import com.book.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,31 +34,17 @@ public class UserController {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
-    /**
-     * 用户登录
-     *
-     * @param request
-     * @return
-     */
-    @PermitAll
     @PostMapping("/login")
     @ApiOperation(value = "后台登录，返回 token ", httpMethod = "POST")
     public Result login(@RequestBody UserLoginRequest request) {
         var token = userService.login(request);
         if (Objects.isNull(token)) {
-            return Result.failed("登录失败");
+            return Result.failed("用户名或密码错误！");
         }
         return Result.success(token);
     }
 
 
-    /**
-     *  保存
-     *
-     * @param user
-     * @return
-     */
-    @PermitAll
     @PostMapping("/save")
     @ApiOperation(value = "用户管理-保存", httpMethod = "POST")
     public Result save(@RequestBody User user) {
@@ -67,7 +52,7 @@ public class UserController {
     }
 
     /**
-     *  分页查询
+     * 分页查询
      *
      * @param page
      * @return

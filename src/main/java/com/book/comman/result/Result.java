@@ -27,11 +27,11 @@ public class Result<T> implements Serializable {
     private T data;
 
     public static <T> Result<T> success() {
-        return restResult(null, ResultCode.SUCCESS.getCode(), null);
+        return restResult(null, ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
     }
 
     public static <T> Result<T> success(T data) {
-        return restResult(data, ResultCode.SUCCESS.getCode(), null);
+        return restResult(data, ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
     }
 
     public static <T> Result<T> success(T data, String message) {
@@ -39,11 +39,11 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> failed() {
-        return restResult(null, ResultCode.SYSTEM_ERROR.getCode(), null);
+        return restResult(null, ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
 
     public static <T> Result<T> failed(T data) {
-        return restResult(data, ResultCode.SYSTEM_ERROR.getCode(), null);
+        return restResult(data, ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
 
     public static <T> Result<T> failed(T data, String message) {
