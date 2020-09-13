@@ -46,6 +46,10 @@ public class Result<T> implements Serializable {
         return restResult(data, ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
 
+    public static <T> Result<T> failed(String message) {
+        return restResult(null, ResultCode.SYSTEM_ERROR.getCode(), message);
+    }
+
     public static <T> Result<T> failed(T data, String message) {
         return restResult(data, ResultCode.SYSTEM_ERROR.getCode(), message);
     }
