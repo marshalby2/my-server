@@ -36,6 +36,12 @@ public class MenuController {
         return Result.success(menuService.getMenuTree(lazy, parentId));
     }
 
+    @GetMapping("/tree/{userId}")
+    @ApiOperation(value = "菜单管理-根据用户ID获取菜单树", httpMethod = "GET")
+    public Result tree(@PathVariable Long userId) {
+        return Result.success(menuService.getMenuTreeByUserId(userId));
+    }
+
     @GetMapping("/detail/{id}")
     @ApiOperation(value = "菜单管理-详细信息", httpMethod = "GET")
     public Result<Menu> detail(@PathVariable Long id) {

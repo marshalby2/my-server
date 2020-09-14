@@ -15,9 +15,19 @@ public interface MenuService extends IService<Menu> {
      * 获取菜单树
      * 1. 不是懒加载情况，查询全部
      * 2. 是懒加载，根据parentId 查询
+     *
      * @param lazy
      * @param parentId
      * @return
      */
     List<Menu> getMenuTree(boolean lazy, Long parentId);
+
+
+    /**
+     * 根据用户ID查询对应的菜单树
+     *
+     * @param userId
+     * @return
+     */
+    List<Menu> getMenuTreeByUserId(Long userId);
 }

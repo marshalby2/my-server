@@ -13,4 +13,10 @@ public interface Constants {
      */
     Long MENU_TREE_ROOT_ID = -1L;
 
+    /**
+     *  默认菜单树根节点ID
+     *
+     */
+    Long DEFAULT_MENU_TREE_ROOT_ID = 1L;
+
 }

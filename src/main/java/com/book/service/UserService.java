@@ -2,6 +2,7 @@ package com.book.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.book.comman.jwt.JwtToken;
+import com.book.domain.bean.Role;
 import com.book.domain.bean.User;
 import com.book.domain.request.UserLoginRequest;
 
@@ -48,4 +49,5 @@ public interface UserService extends IService<User>{
      * @return
      */
     boolean saveRole(Long userId, List<Long> roleIds);
+
 }

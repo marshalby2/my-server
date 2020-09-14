@@ -2,11 +2,13 @@ package com.book.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.book.comman.exception.ExceptionFactory;
 import com.book.comman.jwt.JwtToken;
 import com.book.comman.jwt.JwtTokenUtil;
+import com.book.domain.bean.Role;
 import com.book.domain.bean.User;
 import com.book.domain.bean.UserRole;
 import com.book.domain.request.UserLoginRequest;
@@ -103,16 +105,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public boolean saveRole(Long userId, List<Long> roleIds) {
         // 删除原有的用户角色关系
-        var wrapper = new LambdaQueryWrapper<UserRole>();
-        wrapper.eq(UserRole::getUserId, userId);
-        userRoleMapper.delete(wrapper);
+        userRoleMapper.delete(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getUserId, userId));
         // 重新插入新关系
         roleIds.forEach(roleId -> {
             userRoleMapper.insert(UserRole.builder().userId(userId).roleId(roleId).build());
         });
         return true;
     }
-
 }
 
 

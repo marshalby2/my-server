@@ -36,6 +36,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                 parentId);
     }
 
+    @Override
+    public List<Menu> getMenuTreeByUserId(Long userId) {
+        return recursiveCreateTree(menuMapper.getMenusByUserId(userId), Constants.DEFAULT_MENU_TREE_ROOT_ID);
+    }
+
 
     /**
      * 递归创建菜单树

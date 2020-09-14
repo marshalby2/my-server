@@ -19,4 +19,12 @@ public interface RoleService extends IService<Role> {
      * @return
      */
     boolean saveMenu(Long roleId, List<Long> menuIds);
+
+    /**
+     *  根据用户ID查询角色信息
+     *
+     * @param userId
+     * @return
+     */
+    List<Role> getRolesByUserId(Long userId);
 }
