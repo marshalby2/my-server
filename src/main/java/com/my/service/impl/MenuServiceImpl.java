@@ -1,9 +1,13 @@
 package com.my.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.my.comman.constant.Constants;
 import com.my.domain.bean.Menu;
+import com.my.domain.query.MenuQuery;
 import com.my.mapper.MenuMapper;
 import com.my.service.MenuService;
 import com.google.common.collect.Lists;
@@ -39,6 +43,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public List<Menu> getMenuTreeByUserId(Long userId) {
         return recursiveCreateTree(menuMapper.getMenusByUserId(userId), Constants.DEFAULT_MENU_TREE_ROOT_ID);
+    }
+
+    @Override
+    public IPage<Menu> getByPage(MenuQuery query) {
+        var wrapper = Wrappers.<Menu>lambdaQuery();
+        if (StrUtil.isNotEmpty(query.getLabel())) {
+            wrapper.like(Menu::getLabel, query.getLabel());
+        }
+        return menuMapper.selectPage(query.getPage(), wrapper);
     }
 
 

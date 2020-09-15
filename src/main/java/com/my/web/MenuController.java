@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.comman.result.Result;
 import com.my.domain.bean.Menu;
+import com.my.domain.query.MenuQuery;
 import com.my.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,12 +24,11 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @PostMapping("/page")
-    @ApiOperation(value = "菜单管理-分页查询", httpMethod = "POST")
-    public Result<IPage<Menu>> page(Page<Menu> page) {
-        return Result.success( menuService.page(page));
+    @GetMapping("/page")
+    @ApiOperation(value = "菜单管理-分页查询", httpMethod = "GET")
+    public Result<IPage<Menu>> page(MenuQuery query) {
+        return Result.success(menuService.getByPage(query));
     }
-
 
     @GetMapping("/tree")
     @ApiOperation(value = "菜单管理-获取菜单树", httpMethod = "GET")
@@ -45,7 +45,7 @@ public class MenuController {
     @GetMapping("/detail/{id}")
     @ApiOperation(value = "菜单管理-详细信息", httpMethod = "GET")
     public Result<Menu> detail(@PathVariable Long id) {
-        return Result.success( menuService.getById(id));
+        return Result.success(menuService.getById(id));
     }
 
     @PostMapping("/save")

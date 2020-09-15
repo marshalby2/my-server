@@ -1,7 +1,10 @@
 package com.my.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.domain.bean.Menu;
+import com.my.domain.query.MenuQuery;
 
 import java.util.List;
 
@@ -30,4 +33,13 @@ public interface MenuService extends IService<Menu> {
      * @return
      */
     List<Menu> getMenuTreeByUserId(Long userId);
+
+
+    /**
+     *  分页查询
+     *
+     * @param query
+     * @return
+     */
+    IPage<Menu> getByPage(MenuQuery query);
 }
