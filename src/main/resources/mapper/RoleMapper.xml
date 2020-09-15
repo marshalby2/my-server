@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.book.mapper.RoleMapper">
+<mapper namespace="com.my.mapper.RoleMapper">
 
-    <select id="getRolesByUserId" resultType="com.book.domain.bean.Role">
+    <select id="getRolesByUserId" resultType="com.my.domain.bean.Role">
         select
             r.id,
             r.name
