@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Description TODO
@@ -47,11 +48,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public IPage<Menu> getByPage(MenuQuery query) {
-        var wrapper = Wrappers.<Menu>lambdaQuery();
-        if (StrUtil.isNotEmpty(query.getLabel())) {
-            wrapper.like(Menu::getLabel, query.getLabel());
-        }
-        return menuMapper.selectPage(query.getPage(), wrapper);
+        return menuMapper.selectByPage(query.getPage(), query);
     }
 
 

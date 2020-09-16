@@ -15,7 +15,11 @@ import lombok.Data;
 @ApiModel("菜单查询参数类")
 public class MenuQuery extends PageHelp<Menu> {
     private static final long serialVersionUID = 1429218960957708271L;
-    @ApiModelProperty("菜单名称")
+    @ApiModelProperty("名称")
     private String label;
+    @ApiModelProperty("url")
+    private String url;
+    @ApiModelProperty("上级菜单")
+    private Long parentId;
 
 }

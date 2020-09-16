@@ -25,11 +25,14 @@ public class Menu extends BaseModel implements Serializable {
     private String url;
     @ApiModelProperty("图标")
     private String icon;
-    @ApiModelProperty("父级菜单ID")
+    @ApiModelProperty("上级菜单ID")
     private Long parentId;
     @ApiModelProperty("排序")
     private Integer sort;
     @ApiModelProperty(value = "子菜单", hidden = true)
     @TableField(exist = false)
     private List<Menu> children = Lists.newArrayList();
+    @ApiModelProperty("上级菜单名称")
+    @TableField(exist = false)
+    private String parent;
 }
