@@ -1,7 +1,9 @@
 package com.my.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.my.comman.jwt.JwtToken;
@@ -9,6 +11,7 @@ import com.my.domain.bean.UserRole;
 import com.my.comman.exception.ExceptionFactory;
 import com.my.comman.jwt.JwtTokenUtil;
 import com.my.domain.bean.User;
+import com.my.domain.query.UserQuery;
 import com.my.domain.request.UserLoginRequest;
 import com.my.mapper.UserMapper;
 import com.my.mapper.UserRoleMapper;
@@ -107,6 +110,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             userRoleMapper.insert(UserRole.builder().userId(userId).roleId(roleId).build());
         });
         return true;
+    }
+
+    @Override
+    public IPage<User> getByPage(UserQuery query) {
+        return this.userMapper.selectByPage(query.getPage(), query);
     }
 }
 

@@ -84,10 +84,10 @@ public class UserController {
      * @param query
      * @return
      */
-    @PostMapping("/page")
-    @ApiOperation(value = "用户管理-分页查询", httpMethod = "POST")
+    @GetMapping("/page")
+    @ApiOperation(value = "用户管理-分页查询", httpMethod = "GET")
     public Result<IPage<User>> page(UserQuery query) {
-        return Result.success(this.userService.page(query.getPage()));
+        return Result.success(this.userService.getByPage(query));
     }
 
 

@@ -1,7 +1,6 @@
 package com.my.web;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.comman.result.Result;
 import com.my.domain.bean.Menu;
 import com.my.domain.query.MenuQuery;

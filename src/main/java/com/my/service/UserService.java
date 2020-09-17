@@ -1,8 +1,11 @@
 package com.my.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.comman.jwt.JwtToken;
 import com.my.domain.bean.User;
+import com.my.domain.query.UserQuery;
 import com.my.domain.request.UserLoginRequest;
 
 import java.util.List;
@@ -49,4 +52,11 @@ public interface UserService extends IService<User>{
      */
     boolean saveRole(Long userId, List<Long> roleIds);
 
+    /**
+     *  分页 查询
+     *
+     * @param query
+     * @return
+     */
+    IPage<User> getByPage(UserQuery query);
 }

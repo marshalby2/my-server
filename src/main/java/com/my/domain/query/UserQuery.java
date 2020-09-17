@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Description TODO
  * @Author marshal
@@ -15,9 +17,10 @@ import lombok.Data;
 @ApiModel("用户查询参数")
 public class UserQuery extends PageHelp<User> {
 
+    private static final long serialVersionUID = -4408399783154752199L;
     @ApiModelProperty("用户名")
     private String username;
-    @ApiModelProperty("备注")
-    private String remark;
+    @ApiModelProperty("角色")
+    private Long roleId;
 
 }

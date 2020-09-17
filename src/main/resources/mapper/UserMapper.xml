@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.my.mapper.UserMapper">
+    <select id="selectByPage" resultType="com.my.domain.bean.User">
+        select
+            u.id,u.username,u.avatar,u.nick_name,u.email,u.create_time,
+            r.name as role
+        from
+            user u
+        left join user_role ur on ur.user_id = u.id
+        left join role r on r.id = ur.role_id
+        <where>
+            <if test='query.username != null and query.username != ""'>
+                u.username like (CONCAT(CONCAT('%',#{query.username}),'%'))
+            </if>
+            <if test='query.roleId != null'>
+                r.id = #{query.roleId}
+            </if>
+        </where>
+        order by u.create_time desc
+    </select>
 </mapper>
