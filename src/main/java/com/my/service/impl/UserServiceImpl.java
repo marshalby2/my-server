@@ -79,11 +79,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public boolean save(User user) {
-        // 逻辑校验
-        var newUser = this.findByUsername(user.getUsername());
-        if (Objects.nonNull(newUser)) {
-            ExceptionFactory.build("用户名已存在");
-        }
         if (Objects.nonNull(user.getId()) && !user.getId().equals(0L)) {
             // 更新
             if (StrUtil.isNotEmpty(user.getPassword())) {
@@ -94,9 +89,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             userMapper.updateById(user);
         } else {
             // 新增
+            // 逻辑校验
+            var newUser = this.findByUsername(user.getUsername());
+            if (Objects.nonNull(newUser)) {
+                ExceptionFactory.build("用户名已存在");
+            }
             // 密码加密
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userMapper.insert(user);
+            var insert = userMapper.insert(user);
         }
         return true;
     }

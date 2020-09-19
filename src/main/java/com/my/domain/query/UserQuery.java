@@ -20,7 +20,7 @@ public class UserQuery extends PageHelp<User> {
     private static final long serialVersionUID = -4408399783154752199L;
     @ApiModelProperty("用户名")
     private String username;
-    @ApiModelProperty("角色")
-    private Long roleId;
+    @ApiModelProperty("角色集合")
+    private List<Long> roles;
 
 }

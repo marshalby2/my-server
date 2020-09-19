@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.domain.bean.Role;
 import com.my.comman.result.Result;
+import com.my.domain.query.RoleQuery;
 import com.my.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,10 +26,16 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @PostMapping("/page")
-    @ApiOperation(value = "角色管理-分页查询", httpMethod = "POST")
-    public Result<IPage<Role>> page(Page<Role> page) {
-        return Result.success(roleService.page(page));
+    @GetMapping("/page")
+    @ApiOperation(value = "角色管理-分页查询", httpMethod = "GET")
+    public Result<IPage<Role>> page(RoleQuery query) {
+        return Result.success(roleService.getByPage(query));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation(value = "角色管理-查询所有", httpMethod = "GET")
+    public Result<List<Role>> list() {
+        return Result.success(roleService.list());
     }
 
     @GetMapping("/detail/{id}")

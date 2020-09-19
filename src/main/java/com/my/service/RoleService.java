@@ -1,7 +1,9 @@
 package com.my.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.domain.bean.Role;
+import com.my.domain.query.RoleQuery;
 
 import java.util.List;
 
@@ -27,4 +29,8 @@ public interface RoleService extends IService<Role> {
      * @return
      */
     List<Role> getRolesByUserId(Long userId);
+
+    boolean save(Role role);
+
+    IPage<Role> getByPage(RoleQuery query);
 }

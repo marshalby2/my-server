@@ -1,21 +1,20 @@
-package com.my.domain.bean;
+package com.my.domain.query;
 
-import com.my.comman.bean.BaseModel;
+import com.my.comman.util.PageHelp;
+import com.my.domain.bean.Role;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * @Description TODO
  * @Author marshal
- * @Date 4/9/20 5:16 PM
+ * @Date 15/9/20 3:41 PM
  */
 @Data
-@ApiModel("角色信息")
-public class Role extends BaseModel implements Serializable {
-    private static final long serialVersionUID = 7546946961871131590L;
+@ApiModel("角色查询参数类")
+public class RoleQuery extends PageHelp<Role> {
+    private static final long serialVersionUID = 1429218960957708271L;
     @ApiModelProperty("名称")
     private String name;
     @ApiModelProperty("标识")

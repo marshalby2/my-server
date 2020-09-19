@@ -3,7 +3,7 @@
 <mapper namespace="com.my.mapper.UserMapper">
     <select id="selectByPage" resultType="com.my.domain.bean.User">
         select
-            u.id,u.username,u.avatar,u.nick_name,u.email,u.create_time,
+            u.id,u.username,u.enable,u.avatar,u.nick_name,u.email,u.create_time,
             r.name as role
         from
             user u
@@ -13,10 +13,10 @@
             <if test='query.username != null and query.username != ""'>
                 u.username like (CONCAT(CONCAT('%',#{query.username}),'%'))
             </if>
-            <if test='query.roleId != null'>
-                r.id = #{query.roleId}
+            <if test='query.roles != null'>
+                r.id = in (#{query.roles})
             </if>
         </where>
-        order by u.create_time desc
+        order by u.update_time desc
     </select>
 </mapper>
