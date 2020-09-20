@@ -1,7 +1,6 @@
 package com.my.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -42,9 +41,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         return true;
     }
 
-    @Override
-    public List<Role> getRolesByUserId(Long userId) {
-        return roleMapper.getRolesByUserId(userId);
+    public List<Role> getListByUser(Long userId) {
+        return roleMapper.getListByUser(userId);
     }
 
     public boolean save(Role role) {

@@ -6,6 +6,7 @@ import com.my.comman.result.Result;
 import com.my.domain.bean.User;
 import com.my.domain.query.UserQuery;
 import com.my.domain.request.UserLoginRequest;
+import com.my.domain.request.UserRoleRequest;
 import com.my.service.MenuService;
 import com.my.service.RoleService;
 import com.my.service.UserService;
@@ -67,7 +68,7 @@ public class UserController {
         map.put("avatar", user.getAvatar());
         map.put("menus", menuService.getMenuTreeByUserId(user.getId()));
         map.put("roles",
-                roleService.getRolesByUserId(user.getId()).stream().map(Role::getName).collect(Collectors.toList())
+                roleService.getListByUser(user.getId()).stream().map(Role::getCode).collect(Collectors.toList())
         );
         return Result.success(map);
     }
@@ -104,10 +105,10 @@ public class UserController {
         return Result.success(userService.removeById(id));
     }
 
-    @GetMapping("/saveRole")
-    @ApiOperation(value = "用户管理-保存角色信息", httpMethod = "GET")
-    public Result saveRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") List<Long> roleIds) {
-        return Result.success(userService.saveRole(userId, roleIds));
+    @PostMapping("/saveRole")
+    @ApiOperation(value = "用户管理-保存角色信息", httpMethod = "POST")
+    public Result saveRole(@RequestBody UserRoleRequest request) {
+        return Result.success(userService.saveRole(request.getUserId(), request.getRoleIds()));
     }
 
 }

@@ -51,6 +51,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return menuMapper.selectByPage(query.getPage(), query);
     }
 
+    @Override
+    public List<Menu> getListByRole(Long roleId) {
+        return menuMapper.getListByRole(roleId);
+    }
+
 
     /**
      * 递归创建菜单树

@@ -42,4 +42,12 @@ public interface MenuService extends IService<Menu> {
      * @return
      */
     IPage<Menu> getByPage(MenuQuery query);
+
+    /**
+     *  根据角色查询
+     *
+     * @param roleId
+     * @return
+     */
+    List<Menu> getListByRole(Long roleId);
 }

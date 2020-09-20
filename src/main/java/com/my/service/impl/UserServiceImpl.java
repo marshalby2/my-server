@@ -1,18 +1,22 @@
 package com.my.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.my.comman.jwt.JwtToken;
+import com.my.domain.bean.Role;
 import com.my.domain.bean.UserRole;
 import com.my.comman.exception.ExceptionFactory;
 import com.my.comman.jwt.JwtTokenUtil;
 import com.my.domain.bean.User;
 import com.my.domain.query.UserQuery;
 import com.my.domain.request.UserLoginRequest;
+import com.my.mapper.RoleMapper;
 import com.my.mapper.UserMapper;
 import com.my.mapper.UserRoleMapper;
 import com.my.service.UserService;
@@ -25,11 +29,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Description TODO
@@ -51,6 +57,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
     @Autowired
     private UserRoleMapper userRoleMapper;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public User findByUsername(String username) {
@@ -78,13 +86,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    @Transactional
     public boolean save(User user) {
         if (Objects.nonNull(user.getId()) && !user.getId().equals(0L)) {
-            // 更新
-            if (StrUtil.isNotEmpty(user.getPassword())) {
-                // 密码加密
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
-            }
+            // 密码加密
+            user.setPassword(passwordEncoder.encode(user.getNewPassword()));
             user.setUpdateTime(Date.from(Instant.now()));
             userMapper.updateById(user);
         } else {
@@ -95,8 +101,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 ExceptionFactory.build("用户名已存在");
             }
             // 密码加密
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            var insert = userMapper.insert(user);
+            user.setPassword(passwordEncoder.encode(user.getNewPassword()));
+            userMapper.insert(user);
         }
         return true;
     }
@@ -114,7 +120,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public IPage<User> getByPage(UserQuery query) {
-        return this.userMapper.selectByPage(query.getPage(), query);
+        var wrapper = Wrappers.<User>lambdaQuery();
+        if (StrUtil.isNotEmpty(query.getUsername())) {
+            wrapper.eq(User::getUsername, query.getUsername());
+        }
+        var page = userMapper.selectPage(query.getPage(), wrapper);
+        var users = page.getRecords();
+        // 设置角色信息
+        users.forEach(e -> {
+            var roles = roleMapper.getListByUser(e.getId());
+            if (CollUtil.isNotEmpty(roles)) {
+                e.setRoles(roles.stream().map(Role::getName).collect(Collectors.toList()));
+            }
+        });
+        return page;
     }
 }
 

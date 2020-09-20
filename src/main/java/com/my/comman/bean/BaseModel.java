@@ -1,5 +1,7 @@
 package com.my.comman.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,6 +19,7 @@ public class BaseModel implements Serializable {
     private static final long serialVersionUID = -426550088014732717L;
 
     @ApiModelProperty(value = "主键ID", hidden = true)
+    @TableId(type = IdType.AUTO)
     private Long id;
     @ApiModelProperty("备注")
     private String remark;

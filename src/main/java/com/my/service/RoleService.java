@@ -28,7 +28,7 @@ public interface RoleService extends IService<Role> {
      * @param userId
      * @return
      */
-    List<Role> getRolesByUserId(Long userId);
+    List<Role> getListByUser(Long userId);
 
     boolean save(Role role);
 

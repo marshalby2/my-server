@@ -5,6 +5,7 @@ import com.my.comman.bean.BaseModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @Data
 @ApiModel("用户信息")
+@ToString
 public class User extends BaseModel implements Serializable {
     private static final long serialVersionUID = 295547971163197275L;
 
@@ -33,5 +35,10 @@ public class User extends BaseModel implements Serializable {
     private Boolean enable;
     @ApiModelProperty(value = "用户角色信息", hidden = true)
     @TableField(exist = false)
-    private List<Role> roles;
+    private List<String> roles;
+    @ApiModelProperty(value = "新密码", hidden = true)
+    @TableField(exist = false)
+    private String newPassword;
+
+
 }

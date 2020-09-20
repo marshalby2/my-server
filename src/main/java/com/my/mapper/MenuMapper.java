@@ -28,4 +28,11 @@ public interface MenuMapper extends BaseMapper<Menu> {
      */
     IPage<Menu> selectByPage(Page<Menu> page, @Param("query") MenuQuery query);
 
+    /**
+     *  根据角色查询
+     *
+     * @param roleId
+     * @return
+     */
+    List<Menu> getListByRole(@Param("roleId") Long roleId);
 }

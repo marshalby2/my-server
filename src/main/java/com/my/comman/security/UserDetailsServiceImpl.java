@@ -1,7 +1,9 @@
 package com.my.comman.security;
 
 import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
+import com.my.domain.bean.Role;
 import com.my.domain.bean.User;
+import com.my.mapper.RoleMapper;
 import com.my.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,6 +28,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,10 +37,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException("用户不存在");
         }
-        // 随便设置一些权限
+        // 设置权限
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if (user.getRoles() != null) {
-            authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        var roles = roleMapper.getListByUser(user.getId());
+        if (roles != null) {
+            authorities = roles.stream().map(role -> new SimpleGrantedAuthority(role.getCode())).collect(Collectors.toList());
         }
         return new LoginUser(user.getUsername(), user.getPassword(), authorities);
     }

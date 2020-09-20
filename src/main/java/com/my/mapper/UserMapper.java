@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface UserMapper extends BaseMapper<User> {
     /**
-     *  分页查询
+     *  分页查询(暂时弃用了)
      *
      * @param page
      * @param query

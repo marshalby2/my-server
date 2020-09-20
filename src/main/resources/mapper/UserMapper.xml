@@ -3,8 +3,7 @@
 <mapper namespace="com.my.mapper.UserMapper">
     <select id="selectByPage" resultType="com.my.domain.bean.User">
         select
-            u.id,u.username,u.enable,u.avatar,u.nick_name,u.email,u.create_time,
-            r.name as role
+            u.id,u.username,u.enable,u.avatar,u.nick_name,u.email,u.create_time
         from
             user u
         left join user_role ur on ur.user_id = u.id

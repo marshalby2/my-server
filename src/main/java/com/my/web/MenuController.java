@@ -10,6 +10,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @Description TODO
  * @Author marshal
@@ -39,6 +42,12 @@ public class MenuController {
     @ApiOperation(value = "菜单管理-根据用户ID获取菜单树", httpMethod = "GET")
     public Result tree(@PathVariable Long userId) {
         return Result.success(menuService.getMenuTreeByUserId(userId));
+    }
+
+    @GetMapping("/list/{roleId}")
+    @ApiOperation(value = "菜单管理-根据角色ID查询对应的菜单", httpMethod = "GET")
+    public Result<List<Menu>> list(@PathVariable Long roleId) {
+        return Result.success(menuService.getListByRole(roleId));
     }
 
     @GetMapping("/detail/{id}")

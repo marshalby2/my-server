@@ -5,6 +5,7 @@
 
     <select id="getMenusByUserId" resultType="com.my.domain.bean.Menu">
         select
+        distinct
             m.id,m.label,m.icon,m.sort,m.url,m.parent_id
         from menu m
             left join role_menu rm on m.id = rm.menu_id
@@ -32,5 +33,13 @@
             </if>
         </where>
         order by m.create_time desc
+    </select>
+    <select id="getListByRole" resultType="com.my.domain.bean.Menu">
+        select
+            m.id,m.label,m.sort,m.parent_id
+        from
+            menu m
+            left join role_menu rm on rm.menu_id = m.id
+        where rm.role_id = #{roleId};
     </select>
 </mapper>
