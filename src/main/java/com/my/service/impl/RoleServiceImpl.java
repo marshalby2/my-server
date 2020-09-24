@@ -1,6 +1,7 @@
 package com.my.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -52,7 +53,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             roleMapper.updateById(role);
         } else {
             // 新增
-            var one = roleMapper.selectOne(Wrappers.<Role>lambdaQuery().eq(Role::getName, role.getName()));
+            Role one = roleMapper.selectOne(Wrappers.<Role>lambdaQuery().eq(Role::getName, role.getName()));
             if (Objects.nonNull(one)) {
                 ExceptionFactory.build("角色名称已存在");
             }
@@ -64,7 +65,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     public IPage<Role> getByPage(RoleQuery query) {
-        var wrapper = Wrappers.<Role>lambdaQuery();
+        LambdaQueryWrapper<Role> wrapper = Wrappers.<Role>lambdaQuery();
         if (StrUtil.isNotEmpty(query.getName())) {
             wrapper.like(Role::getName, query.getName());
         }

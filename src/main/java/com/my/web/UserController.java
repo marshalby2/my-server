@@ -1,8 +1,10 @@
 package com.my.web;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.my.domain.bean.Role;
+import com.google.common.collect.Maps;
+import com.my.comman.jwt.JwtToken;
 import com.my.comman.result.Result;
+import com.my.domain.bean.Role;
 import com.my.domain.bean.User;
 import com.my.domain.query.UserQuery;
 import com.my.domain.request.UserLoginRequest;
@@ -10,14 +12,12 @@ import com.my.domain.request.UserRoleRequest;
 import com.my.service.MenuService;
 import com.my.service.RoleService;
 import com.my.service.UserService;
-import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -42,7 +42,7 @@ public class UserController {
     @PostMapping("/login")
     @ApiOperation(value = "后台登录，返回 token ", httpMethod = "POST")
     public Result login(@RequestBody UserLoginRequest request) {
-        var token = userService.login(request);
+        JwtToken token = userService.login(request);
         if (Objects.isNull(token)) {
             return Result.failed("用户名或密码错误！");
         }
@@ -61,8 +61,8 @@ public class UserController {
         if (Objects.isNull(principal)) {
             return Result.unauthorized(null);
         }
-        var username = principal.getName();
-        var user = userService.findByUsername(username);
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
         Map<String,Object> map = Maps.newHashMap();
         map.put("username", user.getUsername());
         map.put("avatar", user.getAvatar());

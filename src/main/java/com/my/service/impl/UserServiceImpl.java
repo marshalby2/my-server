@@ -21,11 +21,13 @@ import com.my.mapper.UserMapper;
 import com.my.mapper.UserRoleMapper;
 import com.my.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -69,7 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public JwtToken login(UserLoginRequest request) {
         String token = null;
         try {
-            var userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+            UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
             if (!passwordEncoder.matches(request.getPassword(), userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }
@@ -96,7 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         } else {
             // 新增
             // 逻辑校验
-            var newUser = this.findByUsername(user.getUsername());
+            User newUser = this.findByUsername(user.getUsername());
             if (Objects.nonNull(newUser)) {
                 ExceptionFactory.build("用户名已存在");
             }
@@ -120,7 +122,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public IPage<User> getByPage(UserQuery query) {
-        var wrapper = Wrappers.<User>lambdaQuery();
+        LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();
         if (StrUtil.isNotEmpty(query.getUsername())) {
             wrapper.eq(User::getUsername, query.getUsername());
         }

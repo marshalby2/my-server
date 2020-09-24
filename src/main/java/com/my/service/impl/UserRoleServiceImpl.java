@@ -22,7 +22,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
     @Override
     public boolean update(UserRole userRole) {
         // 删除原有的关联关系
-        var wrapper = new LambdaQueryWrapper<UserRole>();
+        LambdaQueryWrapper<UserRole> wrapper = new LambdaQueryWrapper<UserRole>();
         wrapper.eq(UserRole::getUserId, userRole.getUserId());
         userRoleMapper.delete(wrapper);
 

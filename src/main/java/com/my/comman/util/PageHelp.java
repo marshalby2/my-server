@@ -1,21 +1,15 @@
 package com.my.comman.util;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
 /**
- *  分页帮助类
- *
+ * 分页帮助类
  */
 @Data
 @ApiModel(value = "PageHelp", description = "分页帮助类")
@@ -43,7 +37,7 @@ public class PageHelp<T> implements Serializable {
         long current = this.current == null ? DEFAULT_CURRENT : this.current;
         long size = this.size == null ? DEFAULT_SIZE : this.size;
 
-        var page = new Page<T>(current, size);
+        Page<T> page = new Page<T>(current, size);
         // 设置排序字段
 //        List<OrderItem> orderItems = Lists.newArrayList();
 //        if (CollUtil.isNotEmpty(orderFields)) {

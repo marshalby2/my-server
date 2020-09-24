@@ -33,13 +33,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = new LambdaQueryChainWrapper<>(userMapper).eq(User::getUsername, username).one();
+        User user = new LambdaQueryChainWrapper<>(userMapper).eq(User::getUsername, username).one();
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException("用户不存在");
         }
         // 设置权限
         List<GrantedAuthority> authorities = new ArrayList<>();
-        var roles = roleMapper.getListByUser(user.getId());
+        List<Role> roles = roleMapper.getListByUser(user.getId());
         if (roles != null) {
             authorities = roles.stream().map(role -> new SimpleGrantedAuthority(role.getCode())).collect(Collectors.toList());
         }
