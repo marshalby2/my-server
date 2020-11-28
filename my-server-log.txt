@@ -730,3 +730,72 @@ java.net.ConnectException: Connection refused (Connection refused)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.37.jar!/:9.0.37]
 	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_212]
 
+2020-09-24 12:04:03.226  INFO 1 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.3.RELEASE)
+
+2020-09-24 14:04:31.279  INFO 1 --- [           main] com.my.MyServerApplication               : Starting MyServerApplication v0.0.1-SNAPSHOT on 3bb27c62e4a0 with PID 1 (/app.jar started by root in /)
+2020-09-24 14:04:31.282  INFO 1 --- [           main] com.my.MyServerApplication               : No active profile set, falling back to default profiles: default
+2020-09-24 14:04:33.482  INFO 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4c12331b' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-09-24 14:04:33.492  INFO 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-09-24 14:04:34.166  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9527 (http)
+2020-09-24 14:04:34.197  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-24 14:04:34.198  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-09-24 14:04:34.444  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-24 14:04:34.444  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3099 ms
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+Registered plugin: 'AbstractSqlParserHandler(sqlParserList=null, sqlParserFilter=null)'
+Parsed mapper file: 'URL [jar:file:/app.jar!/BOOT-INF/classes!/mapper/MenuMapper.xml]'
+Parsed mapper file: 'URL [jar:file:/app.jar!/BOOT-INF/classes!/mapper/UserMapper.xml]'
+Parsed mapper file: 'URL [jar:file:/app.jar!/BOOT-INF/classes!/mapper/RoleMapper.xml]'
+ _ _   |_  _ _|_. ___ _ |    _ 
+| | |\/|_)(_| | |_\  |_)||_|_\ 
+     /               |         
+                        3.2.0 
+2020-09-24 14:04:37.706  INFO 1 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@15a04efb, org.springframework.security.web.context.SecurityContextPersistenceFilter@1e13529a, org.springframework.security.web.header.HeaderWriterFilter@19b843ba, org.springframework.security.web.authentication.logout.LogoutFilter@dc9876b, com.my.comman.jwt.JwtAuthenticationTokenFilter@2e6a8155, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@452e19ca, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3cfdd820, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@16c069df, org.springframework.security.web.session.SessionManagementFilter@77659b30, org.springframework.security.web.access.ExceptionTranslationFilter@1b410b60, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7ba8c737]
+2020-09-24 14:04:37.753  INFO 1 --- [           main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-09-24 14:04:37.934  INFO 1 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-24 14:04:38.349  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9527 (http) with context path ''
+2020-09-24 14:04:38.350  INFO 1 --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-09-24 14:04:38.377  INFO 1 --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-09-24 14:04:38.442  INFO 1 --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-09-24 14:04:38.561  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.620  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.631  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.671  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.675  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.679  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.679  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.681  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: treeUsingGET_1
+2020-09-24 14:04:38.695  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.696  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteUsingDELETE_1
+2020-09-24 14:04:38.704  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.706  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: detailUsingGET_1
+2020-09-24 14:04:38.710  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.717  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: listUsingGET_1
+2020-09-24 14:04:38.728  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: pageUsingGET_1
+2020-09-24 14:04:38.733  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.735  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: saveUsingPOST_1
+2020-09-24 14:04:38.738  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.744  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.746  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteUsingDELETE_2
+2020-09-24 14:04:38.755  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.757  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: detailUsingGET_2
+2020-09-24 14:04:38.763  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.776  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: pageUsingGET_2
+2020-09-24 14:04:38.784  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.785  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: saveUsingPOST_2
+2020-09-24 14:04:38.788  INFO 1 --- [           main] s.b.v.p.parameter.SizeAnnotationPlugin   : searching for @size: false
+2020-09-24 14:04:38.790  INFO 1 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: saveRoleUsingPOST_1
+2020-09-24 14:04:38.832  INFO 1 --- [           main] com.my.MyServerApplication               : Started MyServerApplication in 8.387 seconds (JVM running for 10.966)
+2020-09-24 14:04:52.961  INFO 1 --- [nio-9527-exec-1] o.apache.tomcat.util.http.parser.Cookie  : A cookie header was received [1599471386,1599788432,1599993400; PLAY_SESSION=eyJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImNzcmZUb2tlbiI6IjJjNGFjMzRjOWQ2NzY4Y2JmODJhNjkwMjU4MDAyZjE4NDUzMTBiNGUtMTYwMDkzNzc5MDE2OS1lMjNmMmNkNDc5OGNmMWUwM2YzNGUzMGIifSwibmJmIjoxNjAwOTM3NzkwLCJpYXQiOjE2MDA5Mzc3OTB9.VP-sf10ttiDT3iJdtJ_VF4QxS5pd-clofQvFwGe238k] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2020-09-24 14:04:52.968  INFO 1 --- [nio-9527-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-09-24 14:04:52.968  INFO 1 --- [nio-9527-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-09-24 14:04:52.977  INFO 1 --- [nio-9527-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms

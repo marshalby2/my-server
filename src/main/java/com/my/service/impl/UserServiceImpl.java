@@ -137,6 +137,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         });
         return page;
     }
+
+    @Override
+    public List<User> getList(UserQuery query) {
+        return userMapper.selectList(Wrappers.emptyWrapper());
+    }
 }
 
 

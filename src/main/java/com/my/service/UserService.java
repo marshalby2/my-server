@@ -59,4 +59,6 @@ public interface UserService extends IService<User>{
      * @return
      */
     IPage<User> getByPage(UserQuery query);
+
+    List<User> getList(UserQuery query);
 }

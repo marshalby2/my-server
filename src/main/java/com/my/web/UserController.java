@@ -1,5 +1,8 @@
 package com.my.web;
 
+import cn.hutool.http.server.HttpServerResponse;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Maps;
 import com.my.comman.jwt.JwtToken;
@@ -18,8 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -109,6 +115,19 @@ public class UserController {
     @ApiOperation(value = "用户管理-保存角色信息", httpMethod = "POST")
     public Result saveRole(@RequestBody UserRoleRequest request) {
         return Result.success(userService.saveRole(request.getUserId(), request.getRoleIds()));
+    }
+
+    public void exportExcel(UserQuery query, HttpServerResponse response) {
+        ExcelWriter writer = ExcelUtil.getBigWriter();
+
+        List<User> users = userService.getList(query);
+        AtomicInteger index = new AtomicInteger(1);
+        users.forEach(e -> {
+            Map<String, Object> row = new LinkedHashMap<>();
+            row.put("序号", index.getAndIncrement());
+            row.put("姓名", e.getUsername());
+            writer.writeRow(row, false);
+        });
     }
 
 }
