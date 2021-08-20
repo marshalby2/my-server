@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableSwagger2Doc
-@MapperScan("com.my.mapper")
 public class MyServerApplication {
 
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package com.my.comman.security;
 
-import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.my.domain.bean.Role;
 import com.my.domain.bean.User;
 import com.my.mapper.RoleMapper;

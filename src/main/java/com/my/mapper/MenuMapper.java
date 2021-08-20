@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.domain.bean.Menu;
 import com.my.domain.query.MenuQuery;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  * @Author marshal
  * @Date 11/9/20 2:58 PM
  */
+@Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
 
     List<Menu> getMenusByUserId(@Param("userId") Long userId);
